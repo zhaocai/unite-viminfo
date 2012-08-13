@@ -1,0 +1,65 @@
+"script_name": unite-scriptnames
+"script_id": "3854"
+"script_type": utility
+"script_package": "{script_name}-{version}.zip"
+"required_vim_version": '7.3'
+"summary": | 
+    unite-scriptnames is a unite.vim plugin to find/open runtime scriptnames.
+"detailed_description": |
+    unite-scriptnames [1] is a unite.vim [2] plugin to find/open runtime scriptnames.
+
+    Requirement:
+
+    + unite.vim
+
+    Latest version: git://github.com/zhaocai/unite-scriptnames.git
+
+"install_details": |
+    Before you start, please refer to the installation instruction from unite.vim
+    [2] to install unite.vim [2] first.
+
+    To install unite-scriptnames [1] ( and usually the same as installing other
+    vim plugins )
+
+    Option A - Without Plugin Manager [3]
+
+    After you install Shougo's unite.vim [2], unarchive the zip file into a
+    directory that is under &rtp of your Vim, including ~/.vim dir.
+
+    Option B - With a Plugin Manager [3]
+
+    If you use plugin managers ( recommanded ) like Pathogen, vundle, neobundle,
+    vim-addon-manager, etc., just unarchive the zip file or clone the
+    unite-scriptnames [1] repo from 'git://github.com/zhaocai/unite-scriptnames.git'
+    into your bundle repo directory (most likely '~/.vim/bundle/'). Then add
+    corresponding command in .vimrc for the bundle manager you are using.
+
+
+    Example:
+
+    1. vundle:
+    >
+        Bundle 'zhaocai/unite-scriptnames'
+
+    2. neobundle:
+    >
+        NeoBundle 'zhaocai/unite-scriptnames'
+
+    3. vim-addon-manager:
+    >
+        call vam#ActivateAddons(['unite-scriptnames'], {'auto_install' : 0})
+
+    ==============================================================================
+    References ~
+
+    [1] https://github.com/zhaocai/unite-scriptnames
+    [2] https://github.com/Shougo/unite.vim
+    [3] http://vim-scripts.org/vim/tools.html "Vim Plugin Manangers"
+
+
+"versions":
+  - '1.1': |
+      * 
+      * 
+  - '1.0': Initial upload
+# vim: filetype=yaml
