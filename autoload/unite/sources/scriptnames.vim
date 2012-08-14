@@ -1,12 +1,20 @@
-let s:save_cpo = &cpo
-set cpo&vim
-" [TODO]( <zhaocai> 2011-12-25 03:15PM ) change source to vim/scriptnames
-" add vim/function vim/message vim/runtimepath vim/autocmd ... ( use verbose to get source file location)
-" vim/menu 
+" --------------- ------------------------------------------------------------
+"           Name : scriptnames
+"       Synopsis : unite source to grab vim scriptnames
+"         Author : Zhao Cai <caizhaoff@gmail.com>
+"       HomePage : https://github.com/zhaocai/unite-viminfo
+"        Version : 0.1
+"   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
+"  Last Modified : Tue 14 Aug 2012 01:51:00 PM EDT
+"            Tag : [ vim, unite, info ]
+"      Copyright : © 2012 by Zhao Cai,
+"                  Released under current GPL license.
+" --------------- ------------------------------------------------------------
+
+
 let s:unite_source = {
-      \ 'name': 'scriptnames',
-      \ 'max_candidates': 50,
-      \ 'is_volatile': 1,
+      \ 'name': 'vim/scriptnames',
+      \ "description": 'candidates from vim scriptnames',
       \ }
 
 fun! s:unite_source.gather_candidates(args, context)
@@ -20,7 +28,7 @@ fun! s:unite_source.gather_candidates(args, context)
         let [nr, fname ] = matchlist(_,'\v(\d+):\s*(.*)$')[1:2]
         call add(candidates, {
                 \ "word": _,
-                \ "source": "scriptnames",
+                \ "source": "vim/scriptnames",
                 \ "kind": "file",
                 \ "action__path": unite#util#substitute_path_separator(
                 \   fnamemodify(fname, ":p")),
@@ -36,5 +44,3 @@ fun! unite#sources#scriptnames#define()
 endf
 
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
