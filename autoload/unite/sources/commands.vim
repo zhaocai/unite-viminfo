@@ -1,28 +1,56 @@
 " --------------- ------------------------------------------------------------
-"           Name : commands
+"           Name : vim/command
 "       Synopsis : unite source to grab vim commands
 "         Author : Zhao Cai <caizhaoff@gmail.com>
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Tue 14 Aug 2012 01:50:12 PM EDT
+"  Last Modified : Tue 14 Aug 2012 02:20:19 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
 " --------------- ------------------------------------------------------------
 
 
-let s:save_cpo = &cpo
-set cpo&vim
 
-let s:unite_source = {
-      \ 'name': 'vim/commands',
+">=< Source [[[1 =============================================================
+let s:source = {
+      \ 'name': 'vim/command',
       \ 'is_volatile': 0,
       \ 'is_multiline' : 1,
       \ 'default_action' : 'open',
+      \ "hooks": {},
+      \ "syntax": "uniteSource__VimCommand",
       \ }
 
-fun! s:unite_source.gather_candidates(args, context)
+fun! unite#sources#commands#define()
+    return s:source
+endf
+
+
+">=< Hooks [[[1 ==============================================================
+fun! s:source.hooks.on_init(args, context) "                              [[[2
+
+    exec 'highlight default link uniteSource__VimCommand_Name ' . 'Define'
+endf
+
+fun! s:source.hooks.on_syntax(args, context) "                            [[[2
+    "Reference:
+    "  unite#get_current_unite().abbr_head == ^
+
+    let unite = unite#get_current_unite()
+
+
+    " Command Name
+    execute 'syntax region uniteSource__VimCommand_Name matchgroup=Delimiter start=/\%'
+                \ . (unite.abbr_head + 2) . 'c\[\%(\s*\)/ end=/\%(\s*\)\]/'
+                \ . ' oneline contained keepend containedin=uniteSource__VimCommand'
+endf
+
+
+
+">=< Gather Candidates [[[1 ==================================================
+fun! s:source.gather_candidates(args, context)
     redir => output
     silent execute 'verbose command'
     redir END
@@ -56,11 +84,11 @@ fun! s:unite_source.gather_candidates(args, context)
     "         \ '\(\S\+\)\s\+' .
     "         \ '\(\S\+\)\s\+' .
     "         \ '\(.\+\)$'
-    let command_line_pattern = 
-            \ '\(\%1c.\)\s' .
-            \ '\(\%3c.\)\s' .
-            \ '\%>4c\(\w\+\)\s\+' .
-            \ '\(.\+\)$' 
+    let command_line_pattern =
+            \'\(\%1c.\)\s' .
+            \'\(\%3c.\)\s' .
+            \'\%>4c\(\w\+\)\s\+' .
+            \'\(.\+\)$'
 
     let command_path_pattern =
                 \'^\%(\s\+Last\sset\sfrom\s\)\(\f\+\)$'
@@ -89,10 +117,7 @@ fun! s:unite_source.gather_candidates(args, context)
     return candidates
 endf
 
-fun! unite#sources#commands#define()
-    return s:unite_source
-endf
 
 
-let &cpo = s:save_cpo
-unlet s:save_cpo
+"▲ Modeline ◀ [[[1 ===========================================================
+" vim: set ft=vim ts=4 sw=4 tw=78 fdm=marker fmr=[[[,]]] fdl=1 :
