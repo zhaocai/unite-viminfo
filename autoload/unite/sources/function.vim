@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Tue 14 Aug 2012 02:45:26 PM EDT
+"  Last Modified : Tue 14 Aug 2012 03:13:50 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -51,7 +51,7 @@ fun! s:source.hooks.on_syntax(args, context) "                            [[[2
 
     " Command Name
     execute 'syntax region uniteSource__VimFuntion_Name matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head) . 'c\[\%(\s*\)/ end=/\%(\s*\)\]/'
+                \ . (unite.abbr_head + 2) . 'c\[\%(\s*\)/ end=/\%(\s*\)\]/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimFuntion'
 endf
 
@@ -76,8 +76,9 @@ fun! s:source.gather_candidates(args, context)
             let _path = matchlist(_, a:context.source__even_line_pattern)[1]
 
             call add(candidates, {
-                \ "word"              : '[' . _func . '] ' . _path,
+                \ "word"              : '[' . _name . '] ' . _path . "\n" . '  function ' . _func,
                 \ "kind"              : ['file', 'jump_list'],
+                \ 'is_multiline'      : 1,
                 \ "action__path": unite#util#substitute_path_separator(
                 \   fnamemodify(_path, ":p")),
                 \ "action__directory": unite#util#substitute_path_separator(

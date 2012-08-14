@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Tue 14 Aug 2012 02:20:19 PM EDT
+"  Last Modified : Tue 14 Aug 2012 03:03:13 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -101,7 +101,7 @@ fun! s:source.gather_candidates(args, context)
             let _path = matchlist(_, command_path_pattern)[1]
 
             call add(candidates, {
-                \ "word"              : '[' . _name . '] ' . _path . "\n" . _bang . _buf . ' ' . _other,
+                \ "word"              : '[' . _name . '] ' . _path . "\n" . _bang . ' ' . _buf . ' ' . _other,
                 \ "kind"              : ['file', 'command', 'jump_list'],
                 \ 'is_multiline'      : 1,
                 \ "action__path": unite#util#substitute_path_separator(
