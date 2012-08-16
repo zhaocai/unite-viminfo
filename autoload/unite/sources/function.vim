@@ -5,13 +5,19 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Wed 15 Aug 2012 09:33:46 PM EDT
+"  Last Modified : Thu 16 Aug 2012 05:41:51 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
 " --------------- ------------------------------------------------------------
 
 
+">=< Settings [[[1 ===========================================================
+
+call zlib#rc#set_default({
+            \ 'g:unite_viminfo__function_delimiter' : '⎜' ,
+            \ 'g:unite_viminfo__function_align_width' : '39' ,
+    \ })
 
 ">=< Source [[[1 =============================================================
 let s:source = {
@@ -19,7 +25,7 @@ let s:source = {
       \ 'is_volatile': 0,
       \ 'default_action' : 'open',
       \ "hooks": {},
-      \ "syntax": "uniteSource__VimFuntion",
+      \ "syntax": "uniteSource__VimFunction",
       \ }
 
 fun! unite#sources#function#define()
@@ -41,7 +47,7 @@ fun! s:source.hooks.on_init(args, context) "                              [[[2
 
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
-    exec 'highlight default link uniteSource__VimFuntion_Name ' . 'Define'
+    exec 'highlight default link uniteSource__VimFunction_Name ' . 'Define'
 endf
 
 fun! s:source.hooks.on_syntax(args, context) "                            [[[2
@@ -51,10 +57,10 @@ fun! s:source.hooks.on_syntax(args, context) "                            [[[2
     let unite = unite#get_current_unite()
 
 
-    " Command Name
-    execute 'syntax region uniteSource__VimFuntion_Name matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head + 2) . 'c\[\%(\s*\)/ end=/\%(\s*\)\]/'
-                \ . ' oneline contained keepend containedin=uniteSource__VimFuntion'
+    execute 'syntax region uniteSource__VimFunction_Name matchgroup=Delimiter start=/\%'
+                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<100c'. g:unite_viminfo__function_delimiter . '/'
+                \ . ' oneline contained keepend containedin=uniteSource__VimFunction'
+
 endf
 
 
@@ -78,7 +84,12 @@ fun! s:source.gather_candidates(args, context)
             let _path = matchlist(_, a:context.source__even_line_pattern)[1]
 
             call add(candidates, {
-                \ "word"              : '[' . _name . '] ' . _path . "\n" . '  function ' . _func,
+                \ "word"              :  _name
+                    \ . repeat(' ', g:unite_viminfo__function_align_width - strdisplaywidth(_name) - 1) . ' '
+                    \ . g:unite_viminfo__function_delimiter . ' '
+                    \ . _path . "\n"
+                    \ . repeat(' ', g:unite_viminfo__function_align_width)
+                    \ . _func,
                 \ "kind"              : ['file', 'jump_list'],
                 \ 'is_multiline'      : 1,
                 \ "action__path": unite#util#substitute_path_separator(

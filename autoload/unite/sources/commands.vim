@@ -5,12 +5,18 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Wed 15 Aug 2012 09:50:55 PM EDT
+"  Last Modified : Thu 16 Aug 2012 05:27:38 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
 " --------------- ------------------------------------------------------------
 
+">=< Settings [[[1 ===========================================================
+
+call zlib#rc#set_default({
+            \ 'g:unite_viminfo__commands_delimiter' : '⎜' ,
+            \ 'g:unite_viminfo__commands_align_width' : '26' ,
+    \ })
 
 
 ">=< Source [[[1 =============================================================
@@ -62,9 +68,8 @@ fun! s:source.hooks.on_syntax(args, context) "                            [[[2
     let unite = unite#get_current_unite()
 
 
-    " Command Name
     execute 'syntax region uniteSource__VimCommands_Name matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head + 2) . 'c\[\%(\s*\)/ end=/\%(\s*\)\]/'
+                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<78c'. g:unite_viminfo__commands_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimCommands'
 endf
 
@@ -100,7 +105,12 @@ fun! s:source.gather_candidates(args, context)
             let _path = matchlist(_, a:context.source__even_line_pattern)[1]
 
             call add(candidates, {
-                \ "word"              : '[' . _name . '] ' . _path . "\n" . _bang . ' ' . _buf . ' ' . _other,
+                \ "word"              : _name
+                    \ . repeat(' ', g:unite_viminfo__commands_align_width - strdisplaywidth(_name) - 1) . ' '
+                    \ . g:unite_viminfo__commands_delimiter . ' '
+                    \ . _path . "\n"
+                    \ . repeat(' ', g:unite_viminfo__commands_align_width)
+                    \ . _bang . ' ' . _buf . ' ' . _other,
                 \ "kind"              : ['file', 'command', 'jump_list'],
                 \ 'is_multiline'      : 1,
                 \ "action__path": unite#util#substitute_path_separator(

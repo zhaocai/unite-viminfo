@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Thu 16 Aug 2012 12:23:57 AM EDT
+"  Last Modified : Thu 16 Aug 2012 05:28:13 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -25,6 +25,7 @@ let s:source = {
       \ 'is_volatile': 0,
       \ 'is_multiline' : 1,
       \ 'default_action' : 'open',
+      \ "filters": ['converter_relative_word', 'matcher_regexp', 'sorter_default' ],
       \ "hooks": {},
       \ "syntax": "uniteSource__VimMappings",
       \ }
@@ -57,7 +58,7 @@ fun! s:source.hooks.on_syntax(args, context) "                            [[[2
 
     " Command Name
     execute 'syntax region uniteSource__VimMappings_Map matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%(\s*\)\%<22c'. g:unite_viminfo__mappings_delimiter . '/'
+                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<78c'. g:unite_viminfo__mappings_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimMappings'
 endf
 
@@ -106,7 +107,7 @@ fun! s:source.gather_candidates(args, context)
 
             let candidate = {
                     \ "word"              : _map
-                        \ . repeat(' ', g:unite_viminfo__mappings_align_width - strdisplaywidth(_map._mode))
+                        \ . repeat(' ', g:unite_viminfo__mappings_align_width - strdisplaywidth(_map._mode) - 1) . ' '
                         \ . _mode . g:unite_viminfo__mappings_delimiter . ' '
                         \ . _path . "\n"
                         \ . repeat(' ', g:unite_viminfo__mappings_align_width)
