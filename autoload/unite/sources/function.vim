@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Tue 14 Aug 2012 03:13:50 PM EDT
+"  Last Modified : Wed 15 Aug 2012 09:33:46 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -30,14 +30,16 @@ endf
 
 ">=< Hooks [[[1 ==============================================================
 fun! s:source.hooks.on_init(args, context) "                              [[[2
+
+    let a:context.source__query = get(a:args, 0, '')
+
     let a:context.source__odd_line_pattern =
                 \'^\%(\function\s*\)\(\S.\+\)$'
 
     let a:context.source__funcname_pattern =
                 \'\%(<SNR>\d\+_\)\=\(\w.\+\)\%((.*)\)'
 
-    let a:context.source__even_line_pattern =
-                \'^\%(\s\+Last\sset\sfrom\s\)\(\f\+\)$'
+    let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
     exec 'highlight default link uniteSource__VimFuntion_Name ' . 'Define'
 endf
@@ -60,7 +62,7 @@ endf
 ">=< Gather Candidates [[[1 ==================================================
 fun! s:source.gather_candidates(args, context)
     redir => output
-    silent execute 'verbose function'
+    silent execute 'verbose function ' . a:context.source__query
     redir END
 
     let lines = split(output, "\n")
