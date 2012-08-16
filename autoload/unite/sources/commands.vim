@@ -1,11 +1,11 @@
 " --------------- ------------------------------------------------------------
-"           Name : vim/command
+"           Name : vim/commands
 "       Synopsis : unite source to grab vim commands
 "         Author : Zhao Cai <caizhaoff@gmail.com>
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Wed 15 Aug 2012 09:33:04 PM EDT
+"  Last Modified : Wed 15 Aug 2012 09:50:55 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -15,12 +15,12 @@
 
 ">=< Source [[[1 =============================================================
 let s:source = {
-      \ 'name': 'vim/command',
+      \ 'name': 'vim/commands',
       \ 'is_volatile': 0,
       \ 'is_multiline' : 1,
       \ 'default_action' : 'open',
       \ "hooks": {},
-      \ "syntax": "uniteSource__VimCommand",
+      \ "syntax": "uniteSource__VimCommands",
       \ }
 
 fun! unite#sources#commands#define()
@@ -52,7 +52,7 @@ fun! s:source.hooks.on_init(args, context) "                              [[[2
 
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
-    exec 'highlight default link uniteSource__VimCommand_Name ' . 'Define'
+    exec 'highlight default link uniteSource__VimCommands_Name ' . 'Define'
 endf
 
 fun! s:source.hooks.on_syntax(args, context) "                            [[[2
@@ -63,9 +63,9 @@ fun! s:source.hooks.on_syntax(args, context) "                            [[[2
 
 
     " Command Name
-    execute 'syntax region uniteSource__VimCommand_Name matchgroup=Delimiter start=/\%'
+    execute 'syntax region uniteSource__VimCommands_Name matchgroup=Delimiter start=/\%'
                 \ . (unite.abbr_head + 2) . 'c\[\%(\s*\)/ end=/\%(\s*\)\]/'
-                \ . ' oneline contained keepend containedin=uniteSource__VimCommand'
+                \ . ' oneline contained keepend containedin=uniteSource__VimCommands'
 endf
 
 
