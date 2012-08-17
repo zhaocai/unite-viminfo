@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Thu 16 Aug 2012 05:41:51 AM EDT
+"  Last Modified : Fri 17 Aug 2012 03:13:11 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -28,7 +28,7 @@ let s:source = {
       \ "syntax": "uniteSource__VimFunction",
       \ }
 
-fun! unite#sources#function#define()
+fun! unite#sources#vim_function#define()
     return s:source
 endf
 

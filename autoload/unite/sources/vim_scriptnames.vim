@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Tue 14 Aug 2012 01:51:00 PM EDT
+"  Last Modified : Fri 17 Aug 2012 03:11:56 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -39,7 +39,7 @@ fun! s:unite_source.gather_candidates(args, context)
     return candidates
 endf
 
-fun! unite#sources#scriptnames#define()
+fun! unite#sources#vim_scriptnames#define()
     return s:unite_source
 endf
 
