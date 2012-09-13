@@ -1,18 +1,16 @@
-*unite-scriptnames.txt*  A unite.vim plugin to find/open runtime scriptnames
+*unite-viminfo.txt*  A unite.vim plugin to find/open runtime scriptnames
 
 ===============================================================================
-                                                    *unite-scriptnames-contents*
-Contents ~
+CONTENTS                                                *unite-viminfo-contents*
 
- 1. Introduction                                |unite-scriptnames-introduction|
- 2. Installation                                |unite-scriptnames-installation|
+ 1. Introduction                                    |unite-viminfo-introduction|
+ 2. Installation                                    |unite-viminfo-installation|
   1. Option A - Without Plugin Manager [3]
   2. Option B - With a Plugin Manager [3] ( recommanded )
- 3. Usage                                              |unite-scriptnames-usage|
+ 3. Usage                                                  |unite-viminfo-usage|
 
 ===============================================================================
-                                                *unite-scriptnames-introduction*
-Introduction ~
+INTRODUCTION                                        *unite-viminfo-introduction*
 
   Plugin         :  unite-scriptnames ~
   Author         :  Zhao Cai
@@ -31,8 +29,7 @@ Requirement:
 Latest version: git://github.com/zhaocai/unite-scriptnames.git
 
 ===============================================================================
-                                                *unite-scriptnames-installation*
-Installation ~
+INSTALLATION                                        *unite-viminfo-installation*
 
 Before you start, please refer to the installation instruction from unite.vim
 [2] to install unite.vim [2] first.
@@ -41,13 +38,13 @@ To install unite-scriptnames [1] ( and usually the same as installing other
 vim plugins )
 
 -------------------------------------------------------------------------------
-Option A - Without Plugin Manager [3] ~
+OPTION A - WITHOUT PLUGIN MANAGER [3]
 
 After you install Shougo's unite.vim [2], unarchive the zip file into a
 directory that is under &rtp of your Vim, including ~/.vim dir.
 
 -------------------------------------------------------------------------------
-Option B - With a Plugin Manager [3] ( recommanded ) ~
+OPTION B - WITH A PLUGIN MANAGER [3] ( RECOMMANDED )
 
 If you use plugin managers like Pathogen, vundle, neobundle,
 vim-addon-manager, etc., just unarchive the zip file or clone the
@@ -65,14 +62,12 @@ Example:
    {'auto_install' : 0})
 
 ===============================================================================
-                                                       *unite-scriptnames-usage*
-Usage ~
+USAGE                                                      *unite-viminfo-usage*
 >
     :Unite scriptnames
 
 ===============================================================================
-                                                  *unite-scriptnames-references*
-References ~
+REFERENCES                                            *unite-viminfo-references*
 
 [1] https://github.com/zhaocai/unite-scriptnames
 [2] https://github.com/Shougo/unite.vim

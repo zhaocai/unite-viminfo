@@ -40,7 +40,7 @@ INSTALL = install
 #=============================================================================
 #>> Rules                                                                 {{{1
 all:
-	cat README.md | pandoc | html2vimdoc.py -f unite-scriptnames.txt > doc/unite-scriptnames.txt
+	cat README.md | pandoc | html2vimdoc.py -f unite-viminfo.txt > doc/unite-viminfo.txt
 
 vimball: $(PLUGIN).vba
 
