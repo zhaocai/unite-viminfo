@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Fri 17 Aug 2012 03:13:11 AM EDT
+"  Last Modified : Thu 13 Sep 2012 02:48:33 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -18,6 +18,14 @@ call zlib#rc#set_default({
             \ 'g:unite_viminfo__function_delimiter' : '⎜' ,
             \ 'g:unite_viminfo__function_align_width' : '39' ,
     \ })
+
+
+
+
+
+
+
+
 
 ">=< Source [[[1 =============================================================
 let s:source = {
@@ -34,6 +42,7 @@ endf
 
 
 
+
 ">=< Hooks [[[1 ==============================================================
 fun! s:source.hooks.on_init(args, context) "                              [[[2
 
@@ -43,7 +52,7 @@ fun! s:source.hooks.on_init(args, context) "                              [[[2
                 \'^\%(\function\s*\)\(\S.\+\)$'
 
     let a:context.source__funcname_pattern =
-                \'\%(<SNR>\d\+_\)\=\(\w.\+\)\%((.*)\)'
+                \'\(\%(<SNR>\d\+_\)\=\w.\+\)\%((.*)\)'
 
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
@@ -55,7 +64,6 @@ fun! s:source.hooks.on_syntax(args, context) "                            [[[2
     "  unite#get_current_unite().abbr_head == ^
 
     let unite = unite#get_current_unite()
-
 
     execute 'syntax region uniteSource__VimFunction_Name matchgroup=Delimiter start=/\%'
                 \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<100c'. g:unite_viminfo__function_delimiter . '/'
@@ -90,7 +98,8 @@ fun! s:source.gather_candidates(args, context)
                     \ . _path . "\n"
                     \ . repeat(' ', g:unite_viminfo__function_align_width)
                     \ . _func,
-                \ "kind"              : ['file', 'jump_list'],
+                \ "kind"              : ['file', 'jump_list', 'vimfunc'],
+                \ 'funcname'          : _name,
                 \ 'is_multiline'      : 1,
                 \ "action__path": unite#util#substitute_path_separator(
                 \   fnamemodify(_path, ":p")),
