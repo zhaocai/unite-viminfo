@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Fri 17 Aug 2012 03:13:12 AM EDT
+"  Last Modified : Wed 22 Aug 2012 02:19:32 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -15,7 +15,7 @@
 
 call zlib#rc#set_default({
             \ 'g:unite_viminfo__mappings_delimiter' : '⎜' ,
-            \ 'g:unite_viminfo__mappings_align_width' : '14' ,
+            \ 'g:unite_viminfo__mappings_align_width' : 14 ,
     \ })
 
 
@@ -39,6 +39,9 @@ endf
 fun! s:source.hooks.on_init(args, context) "                              [[[2
 
     let a:context.source__query = get(a:args, 0, '')
+    let a:context.source__buffer = get(a:args, 1, bufnr('%'))
+    let a:context.source__old_buffer = bufnr('%')
+
     let a:context.source__odd_line_pattern = '^'
                         \ . '\(.\{3}\)'
                         \ . '\(\S\+\)\s\+'
@@ -65,7 +68,13 @@ endf
 
 
 ">=< Gather Candidates [[[1 ==================================================
+
 fun! s:source.gather_candidates(args, context)
+
+    if a:context.source__buffer != a:context.source__old_buffer
+        execute 'buffer' a:context.source__buffer
+    endif
+
 
     redir => map_output
     silent execute 'verbose map ' . a:context.source__query
@@ -74,6 +83,10 @@ fun! s:source.gather_candidates(args, context)
     redir => imap_output
     silent execute 'verbose imap ' . a:context.source__query
     redir END
+
+    if a:context.source__buffer != a:context.source__old_buffer
+        execute 'buffer' a:context.source__old_buffer
+    endif
 
     let lines = split(map_output, "\n") + split(imap_output, "\n")
 
