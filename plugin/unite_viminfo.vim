@@ -5,7 +5,7 @@
 " URL           :
 " Version       : 0.1
 " Date Created  : 07 Aug 2012 09:19:06 PM EDT
-" Last Modified : Wed 15 Aug 2012 09:24:18 PM EDT
+" Last Modified : Thu 20 Sep 2012 04:39:15 PM EDT
 " Tag           : [ vim, info, unite  ]
 " Flavor        : [ env:gui,  ]
 " Dependence    : [ ]
@@ -13,7 +13,7 @@
 
 
 "▶ Load Guard ▼ [[[1 =========================================================
-if !zlib#rc#load_guard('unite_viminfo_' . expand('<sfile>:t:r'), 700, 100, ['has("python")','!&cp'])
+if !zl#rc#load_guard('unite_viminfo_' . expand('<sfile>:t:r'), 700, 100, ['has("python")','!&cp'])
     finish
 endif
 
@@ -23,7 +23,7 @@ set cpo&vim
 
 ">=< Settings [[[1 ===========================================================
 
-call zlib#rc#set_default({
+call zl#rc#set_default({
             \ 'g:unite_viminfo_pathline_pattern' :
                 \'^\%(\s\+Last\sset\sfrom\s\)\(\f\+\)$'
     \ })

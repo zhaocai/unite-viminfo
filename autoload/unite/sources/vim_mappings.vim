@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Wed 22 Aug 2012 02:19:32 AM EDT
+"  Last Modified : Thu 20 Sep 2012 04:39:13 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -13,7 +13,7 @@
 
 ">=< Settings [[[1 ===========================================================
 
-call zlib#rc#set_default({
+call zl#rc#set_default({
             \ 'g:unite_viminfo__mappings_delimiter' : '⎜' ,
             \ 'g:unite_viminfo__mappings_align_width' : 14 ,
     \ })
