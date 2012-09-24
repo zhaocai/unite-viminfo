@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Mon 24 Sep 2012 02:55:43 PM EDT
+"  Last Modified : Mon 24 Sep 2012 03:10:31 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -15,8 +15,9 @@
 ">=< Settings [[[1 ===========================================================
 
 call zl#rc#set_default({
-            \ 'g:unite_viminfo__function_delimiter' : '⎜' ,
-            \ 'g:unite_viminfo__function_align_width' : '39' ,
+    \ 'g:unite_viminfo__function_delimiter'          : '⎜'      ,
+    \ 'g:unite_viminfo__function_align_width'        : '39'     ,
+    \ 'g:unite_viminfo__function_highligh_func_name' : 'Define' ,
     \ })
 
 
@@ -56,7 +57,8 @@ function! s:source.hooks.on_init(args, context) "                              [
 
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
-    exec 'highlight default link uniteSource__VimFunction_Name ' . 'Define'
+    exec 'highlight default link uniteSource__VimFunction_Name '
+    \ . g:unite_viminfo__function_highligh_func_name
 endfunction
 
 function! s:source.hooks.on_syntax(args, context) "                            [[[2

@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Mon 24 Sep 2012 02:54:13 PM EDT
+"  Last Modified : Mon 24 Sep 2012 03:14:07 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -14,8 +14,9 @@
 ">=< Settings [[[1 ===========================================================
 
 call zl#rc#set_default({
-            \ 'g:unite_viminfo__mappings_delimiter' : '⎜' ,
-            \ 'g:unite_viminfo__mappings_align_width' : 14 ,
+    \ 'g:unite_viminfo__mappings_delimiter'              : '⎜'      ,
+    \ 'g:unite_viminfo__mappings_align_width'            : 14       ,
+    \ 'g:unite_viminfo__mappings_highlight_mapping_name' : 'Define' ,
     \ })
 
 
@@ -49,7 +50,8 @@ function! s:source.hooks.on_init(args, context) "                         [[[2
 
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
-    exec 'highlight default link uniteSource__VimMappings_Map ' . 'Define'
+    exec 'highlight default link uniteSource__VimMappings_Map '
+    \ . g:unite_viminfo__mappings_highlight_mapping_name
 endfunction
 
 function! s:source.hooks.on_syntax(args, context) "                       [[[2
