@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Fri 17 Aug 2012 03:13:12 AM EDT
+"  Last Modified : Mon 24 Sep 2012 02:57:18 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -17,7 +17,7 @@ let s:unite_source = {
       \ "description": 'candidates from vim runtimepath',
       \ }
 
-fun! s:unite_source.gather_candidates(args, context)
+function! s:unite_source.gather_candidates(args, context)
 
     let scripts = split(&runtimepath,",")
     let candidates = []
@@ -31,10 +31,10 @@ fun! s:unite_source.gather_candidates(args, context)
                 \ } )
     endfor
     return candidates
-endf
+endfunction
 
-fun! unite#sources#vim_runtimepath#define()
+function! unite#sources#vim_runtimepath#define()
     return s:unite_source
-endf
+endfunction
 
 

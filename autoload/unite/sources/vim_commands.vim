@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Thu 20 Sep 2012 04:35:41 PM EDT
+"  Last Modified : Mon 24 Sep 2012 03:01:35 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -29,20 +29,23 @@ let s:source = {
       \ "syntax": "uniteSource__VimCommands",
       \ }
 
-fun! unite#sources#vim_commands#define()
+function! unite#sources#vim_commands#define()
     return s:source
-endf
+endfunction
 
 
 ">=< Hooks [[[1 ==============================================================
-fun! s:source.hooks.on_init(args, context) "                              [[[2
+function! s:source.hooks.on_init(args, context) "                         [[[2
 
     let a:context.source__query = get(a:args, 0, '')
-    let a:context.source__odd_line_pattern = '^'
-                        \ . '\(\%1c.\)\s'
-                        \ . '\(\%3c.\)\s'
-                        \ . '\%>4c\(\w\+\)\s\+'
-                        \ . '\(.\+\)$'
+    let a:context.source__odd_line_pattern =
+    \'^'                 .
+    \'\(\%1c.\)\s'       .
+    \'\(\%3c.\)\s'       .
+    \'\%>4c\(\w\+\)\s\+' .
+    \'\(.\+\)'           .
+    \'$'
+
     " parse each element?
     " ------------------
     "  not working because some of fields are empty.
@@ -59,24 +62,18 @@ fun! s:source.hooks.on_init(args, context) "                              [[[2
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
     exec 'highlight default link uniteSource__VimCommands_Name ' . 'Define'
-endf
+endfunction
 
-fun! s:source.hooks.on_syntax(args, context) "                            [[[2
-    "Reference:
-    "  unite#get_current_unite().abbr_head == ^
-
-    let unite = unite#get_current_unite()
-
-
-    execute 'syntax region uniteSource__VimCommands_Name matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<78c'. g:unite_viminfo__commands_delimiter . '/'
+function! s:source.hooks.on_syntax(args, context) "                       [[[2
+    execute 'syntax region uniteSource__VimCommands_Name matchgroup=Delimiter start=/'
+                \ . '+\s/ end=/\%<78c'. g:unite_viminfo__commands_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimCommands'
-endf
+endfunction
 
 
 
 ">=< Gather Candidates [[[1 ==================================================
-fun! s:source.gather_candidates(args, context)
+function! s:source.gather_candidates(args, context)
     redir => output
     silent execute 'verbose command ' . a:context.source__query
     redir END
@@ -124,7 +121,7 @@ fun! s:source.gather_candidates(args, context)
         let i += 1
     endfor
     return candidates
-endf
+endfunction
 
 
 

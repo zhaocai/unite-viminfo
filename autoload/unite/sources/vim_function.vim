@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Thu 20 Sep 2012 04:39:12 PM EDT
+"  Last Modified : Mon 24 Sep 2012 02:55:43 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -36,15 +36,15 @@ let s:source = {
       \ "syntax": "uniteSource__VimFunction",
       \ }
 
-fun! unite#sources#vim_function#define()
+function! unite#sources#vim_function#define()
     return s:source
-endf
+endfunction
 
 
 
 
 ">=< Hooks [[[1 ==============================================================
-fun! s:source.hooks.on_init(args, context) "                              [[[2
+function! s:source.hooks.on_init(args, context) "                              [[[2
 
     let a:context.source__query = get(a:args, 0, '')
 
@@ -57,24 +57,19 @@ fun! s:source.hooks.on_init(args, context) "                              [[[2
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
     exec 'highlight default link uniteSource__VimFunction_Name ' . 'Define'
-endf
+endfunction
 
-fun! s:source.hooks.on_syntax(args, context) "                            [[[2
-    "Reference:
-    "  unite#get_current_unite().abbr_head == ^
-
-    let unite = unite#get_current_unite()
-
-    execute 'syntax region uniteSource__VimFunction_Name matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<100c'. g:unite_viminfo__function_delimiter . '/'
+function! s:source.hooks.on_syntax(args, context) "                            [[[2
+    execute 'syntax region uniteSource__VimFunction_Name matchgroup=Delimiter start=/'
+                \ . '+\s/ end=/\%<100c'. g:unite_viminfo__function_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimFunction'
 
-endf
+endfunction
 
 
 
 ">=< Gather Candidates [[[1 ==================================================
-fun! s:source.gather_candidates(args, context)
+function! s:source.gather_candidates(args, context)
     redir => output
     silent execute 'verbose function ' . a:context.source__query
     redir END
@@ -111,7 +106,7 @@ fun! s:source.gather_candidates(args, context)
         let i += 1
     endfor
     return candidates
-endf
+endfunction
 
 
 

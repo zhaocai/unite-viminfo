@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Thu 20 Sep 2012 04:39:13 PM EDT
+"  Last Modified : Mon 24 Sep 2012 02:54:13 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -30,13 +30,13 @@ let s:source = {
       \ "syntax": "uniteSource__VimMappings",
       \ }
 
-fun! unite#sources#vim_mappings#define()
+function! unite#sources#vim_mappings#define()
     return s:source
-endf
+endfunction
 
 
 ">=< Hooks [[[1 ==============================================================
-fun! s:source.hooks.on_init(args, context) "                              [[[2
+function! s:source.hooks.on_init(args, context) "                         [[[2
 
     let a:context.source__query = get(a:args, 0, '')
     let a:context.source__buffer = get(a:args, 1, bufnr('%'))
@@ -50,26 +50,20 @@ fun! s:source.hooks.on_init(args, context) "                              [[[2
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
     exec 'highlight default link uniteSource__VimMappings_Map ' . 'Define'
-endf
+endfunction
 
-fun! s:source.hooks.on_syntax(args, context) "                            [[[2
-    "Reference:
-    "  unite#get_current_unite().abbr_head == ^
+function! s:source.hooks.on_syntax(args, context) "                       [[[2
 
-    let unite = unite#get_current_unite()
-
-
-    " Command Name
-    execute 'syntax region uniteSource__VimMappings_Map matchgroup=Delimiter start=/\%'
-                \ . (unite.abbr_head + 2) . 'c\%(\s*\)/ end=/\%<78c'. g:unite_viminfo__mappings_delimiter . '/'
+    execute 'syntax region uniteSource__VimMappings_Map matchgroup=Delimiter start=/+\s/'
+                \ . ' end=/\%<78c'. g:unite_viminfo__mappings_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimMappings'
-endf
+endfunction
 
 
 
 ">=< Gather Candidates [[[1 ==================================================
 
-fun! s:source.gather_candidates(args, context)
+function! s:source.gather_candidates(args, context)
 
     if a:context.source__buffer != a:context.source__old_buffer
         execute 'buffer' a:context.source__buffer
@@ -149,7 +143,7 @@ fun! s:source.gather_candidates(args, context)
         let i += 1
     endfor
     return candidates
-endf
+endfunction
 
 
 
