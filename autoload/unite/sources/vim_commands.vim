@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Mon 24 Sep 2012 03:14:28 PM EDT
+"  Last Modified : Wed 26 Sep 2012 08:03:32 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -22,13 +22,13 @@ call zl#rc#set_default({
 
 ">=< Source [[[1 =============================================================
 let s:source = {
-      \ 'name': 'vim/commands',
-      \ 'is_volatile': 0,
-      \ 'is_multiline' : 1,
-      \ 'default_action' : 'open',
-      \ "hooks": {},
-      \ "syntax": "uniteSource__VimCommands",
-      \ }
+    \ 'name'           : 'vim/commands'             ,
+    \ 'is_volatile'    : 0                          ,
+    \ 'is_multiline'   : 1                          ,
+    \ 'default_action' : 'open'                     ,
+    \ "hooks"          : {}                         ,
+    \ "syntax"         : "uniteSource__VimCommands" ,
+    \ }
 
 function! unite#sources#vim_commands#define()
     return s:source
@@ -75,13 +75,18 @@ endfunction
 
 
 ">=< Gather Candidates [[[1 ==================================================
+let s:cached_result = []
 function! s:source.gather_candidates(args, context)
+    if !a:context.is_redraw && !empty(s:cached_result)
+        return s:cached_result
+    endif
+
     redir => output
     silent execute 'verbose command ' . a:context.source__query
     redir END
 
     let lines = split(output, "\n")
-    let candidates = []
+    let s:cached_result = []
 
     " remove header
     " -------------
@@ -103,7 +108,7 @@ function! s:source.gather_candidates(args, context)
         else
             let _path = matchlist(_, a:context.source__even_line_pattern)[1]
 
-            call add(candidates, {
+            call add(s:cached_result, {
                 \ "word"              : _name
                     \ . repeat(' ', g:unite_viminfo__commands_align_width - strdisplaywidth(_name) - 1) . ' '
                     \ . g:unite_viminfo__commands_delimiter . ' '
@@ -122,7 +127,7 @@ function! s:source.gather_candidates(args, context)
         endif
         let i += 1
     endfor
-    return candidates
+    return s:cached_result
 endfunction
 
 

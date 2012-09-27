@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Mon 24 Sep 2012 03:10:31 PM EDT
+"  Last Modified : Wed 26 Sep 2012 08:06:05 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -71,13 +71,18 @@ endfunction
 
 
 ">=< Gather Candidates [[[1 ==================================================
+let s:cached_result = []
 function! s:source.gather_candidates(args, context)
+    if !a:context.is_redraw && !empty(s:cached_result)
+        return s:cached_result
+    endif
+    let s:cached_result = []
+
     redir => output
     silent execute 'verbose function ' . a:context.source__query
     redir END
 
     let lines = split(output, "\n")
-    let candidates = []
 
 
     let i = 0
@@ -88,7 +93,7 @@ function! s:source.gather_candidates(args, context)
         else
             let _path = matchlist(_, a:context.source__even_line_pattern)[1]
 
-            call add(candidates, {
+            call add(s:cached_result, {
                 \ "word"              :  _name
                     \ . repeat(' ', g:unite_viminfo__function_align_width - strdisplaywidth(_name) - 1) . ' '
                     \ . g:unite_viminfo__function_delimiter . ' '
@@ -107,7 +112,7 @@ function! s:source.gather_candidates(args, context)
         endif
         let i += 1
     endfor
-    return candidates
+    return s:cached_result
 endfunction
 
 

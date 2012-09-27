@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Mon 24 Sep 2012 02:57:29 PM EDT
+"  Last Modified : Wed 26 Sep 2012 08:04:41 PM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -17,16 +17,21 @@ let s:unite_source = {
       \ "description": 'candidates from vim scriptnames',
       \ }
 
+let s:cached_result = []
 function! s:unite_source.gather_candidates(args, context)
+    if !a:context.is_redraw && !empty(s:cached_result)
+        return s:cached_result
+    endif
+
     redir => output
     silent execute 'scriptnames'
     redir END
 
     let scripts = split(output, "\n")
-    let candidates = []
+    let s:cached_result = []
     for _ in scripts
         let [nr, fname ] = matchlist(_,'\v(\d+):\s*(.*)$')[1:2]
-        call add(candidates, {
+        call add(s:cached_result, {
                 \ "word": _,
                 \ "source": "vim/scriptnames",
                 \ "kind": "file",
@@ -36,7 +41,7 @@ function! s:unite_source.gather_candidates(args, context)
                 \   fnamemodify(fname, ":p:h")),
                 \ } )
     endfor
-    return candidates
+    return s:cached_result
 endfunction
 
 function! unite#sources#vim_scriptnames#define()
