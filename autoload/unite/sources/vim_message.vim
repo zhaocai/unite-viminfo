@@ -1,11 +1,11 @@
 " --------------- ------------------------------------------------------------
-"           Name : scriptnames
-"       Synopsis : unite source to grab vim scriptnames
+"           Name : message
+"       Synopsis : unite source to grab vim message
 "         Author : Zhao Cai <caizhaoff@gmail.com>
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Mon 05 Nov 2012 08:19:11 AM EST
+"  Last Modified : Tue 02 Apr 2013 12:51:02 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -13,33 +13,28 @@
 
 
 let s:unite_source = {
-      \ 'name': 'vim/scriptnames',
-      \ "description": 'candidates from vim scriptnames',
+      \ 'name': 'vim/message',
+      \ "description": 'candidates from vim message',
       \ }
 
 function! s:unite_source.gather_candidates(args, context)
     redir => output
-    silent execute 'scriptnames'
+    silent execute 'message'
     redir END
 
     let scripts = split(output, "\n")
     let candidates = []
-    for _ in scripts
-        let [nr, fname ] = matchlist(_,'\v(\d+):\s*(.*)$')[1:2]
+    for _ in reverse(scripts)
         call add(candidates, {
                 \ "word": _,
-                \ "source": "vim/scriptnames",
-                \ "kind": "file",
-                \ "action__path": unite#util#substitute_path_separator(
-                \   fnamemodify(fname, ":p")),
-                \ "action__directory": unite#util#substitute_path_separator(
-                \   fnamemodify(fname, ":p:h")),
+                \ "source": "vim/message",
+                \ "kind": "word",
                 \ } )
     endfor
     return candidates
 endfunction
 
-function! unite#sources#vim_scriptnames#define()
+function! unite#sources#vim_message#define()
     return s:unite_source
 endfunction
 

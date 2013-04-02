@@ -5,7 +5,7 @@
 "       HomePage : https://github.com/zhaocai/unite-viminfo
 "        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
-"  Last Modified : Wed 26 Sep 2012 08:04:04 PM EDT
+"  Last Modified : Wed 10 Oct 2012 12:42:16 AM EDT
 "            Tag : [ vim, unite, info ]
 "      Copyright : © 2012 by Zhao Cai,
 "                  Released under current GPL license.
@@ -64,11 +64,7 @@ endfunction
 
 
 ">=< Gather Candidates [[[1 ==================================================
-let s:cached_result = []
 function! s:source.gather_candidates(args, context)
-    if !a:context.is_redraw && !empty(s:cached_result)
-        return s:cached_result
-    endif
 
     if a:context.source__buffer != a:context.source__old_buffer
         execute 'buffer' a:context.source__buffer
@@ -89,7 +85,7 @@ function! s:source.gather_candidates(args, context)
 
     let lines = split(map_output, "\n") + split(imap_output, "\n")
 
-    let s:cached_result = []
+    let results = []
 
 
     let i = 0
@@ -143,11 +139,11 @@ function! s:source.gather_candidates(args, context)
                 call extend(candidate.kind, ['file', 'jump_list'] )
             endif
 
-            call add(s:cached_result, candidate)
+            call add(results, candidate)
         endif
         let i += 1
     endfor
-    return s:cached_result
+    return results
 endfunction
 
 
