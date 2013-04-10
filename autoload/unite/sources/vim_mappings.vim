@@ -23,13 +23,17 @@ call zl#rc#set_default({
 ">=< Source [[[1 =============================================================
 let s:source = {
       \ 'name': 'vim/mappings',
+      \ 'description' : 'candidates from Vim mappings',
       \ 'is_volatile': 0,
       \ 'is_multiline' : 1,
       \ 'default_action' : 'open',
+      \ 'default_kind' : 'command',
       \ "filters": ['converter_relative_word', 'matcher_regexp', 'sorter_default' ],
       \ "hooks": {},
+      \ 'action_table' : {},
       \ "syntax": "uniteSource__VimMappings",
       \ }
+
 
 function! unite#sources#vim_mappings#define()
     return s:source
@@ -39,14 +43,14 @@ endfunction
 ">=< Hooks [[[1 ==============================================================
 function! s:source.hooks.on_init(args, context) "                         [[[2
 
-    let a:context.source__query = get(a:args, 0, '')
-    let a:context.source__buffer = get(a:args, 1, bufnr('%'))
+    let a:context.source__buffer = get(a:args, 0, bufnr('%'))
+    let a:context.source__query = get(a:args, 1, '')
     let a:context.source__old_buffer = bufnr('%')
 
     let a:context.source__odd_line_pattern = '^'
-                        \ . '\(.\{3}\)'
-                        \ . '\(\S\+\)\s\+'
-                        \ . '\(\S.\+\)$'
+    \ . '\(.\{3}\)'
+    \ . '\(.\+\)\s\+'
+    \ . '\(\S.*\)$'
 
     let a:context.source__even_line_pattern = g:unite_viminfo_pathline_pattern
 
@@ -146,6 +150,32 @@ function! s:source.gather_candidates(args, context)
     return results
 endfunction
 
+function! s:source.complete(args, context, arglead, cmdline, cursorpos)
+  return filter(range(1, bufnr('$')), 'buflisted(v:val)')
+endfunction
+
+" Actions "{{{
+let s:source.action_table.preview = {
+      \ 'description' : 'view the help documentation',
+      \ 'is_quit' : 0,
+      \ }
+function! s:source.action_table.preview.func(candidate) "{{{
+  let winnr = winnr()
+
+  try
+    execute 'help' matchstr(
+        \ a:candidate.word, '<Plug>\S\+')
+    normal! zv
+    normal! zt
+    setlocal previewwindow
+    setlocal winfixheight
+  catch /^Vim\%((\a\+)\)\?:E149/
+    " Ignore
+  endtry
+
+  execute winnr.'wincmd w'
+endfunction"}}}
+"}}}
 
 
 "▲ Modeline ◀ [[[1 ===========================================================
