@@ -1,13 +1,13 @@
 # A unite.vim plugin to find/open runtime scriptnames
 
-------------- - ----------------------------------------------------------
-Plugin        : unite-scriptnames
-Author        : Zhao Cai
-EMail         : caizhaoff@gmail.com
-URL           : https://github.com/zhaocai/unite-scriptnames
-Date Created  : Wed 21 Dec 2011 09:59:36 PM EST
-Last Modified : Sat 14 Jan 2012 11:17:06 PM EST
-------------- - ----------------------------------------------------------
+    ------------- - ----------------------------------------------------------
+    Plugin        : unite-scriptnames 
+    Author        : Zhao Cai 
+    EMail         : caizhaoff@gmail.com 
+    URL           : https://github.com/zhaocai/unite-scriptnames 
+    Date Created  : Wed 21 Dec 2011 09:59:36 PM EST 
+    Last Modified : Sat 14 Jan 2012 11:17:06 PM EST 
+    ------------- - ----------------------------------------------------------
 
 [unite-scriptnames][unite-scriptnames] is a [unite.vim][unite] plugin to
 find/open runtime scriptnames. It is useful to quickly find and edit runtime scripts.
