@@ -11,7 +11,9 @@
 "                  Released under current GPL license.
 " --------------- ------------------------------------------------------------
 
-">=< Settings [[[1 ===========================================================
+" ============================================================================
+" Settings:                                                               [[[1
+" ============================================================================
 
 call zl#rc#set_default({
     \ 'g:unite_viminfo__mappings_delimiter'              : '⎜'      ,
@@ -20,18 +22,21 @@ call zl#rc#set_default({
     \ })
 
 
-">=< Source [[[1 =============================================================
-let s:source = {
-      \ 'name': 'vim/mappings',
-      \ 'description' : 'candidates from Vim mappings',
-      \ 'is_volatile': 0,
-      \ 'is_multiline' : 1,
-      \ 'default_action' : 'open',
-      \ 'default_kind' : 'command',
-      \ "filters": ['converter_relative_word', 'matcher_regexp', 'sorter_default' ],
-      \ "hooks": {},
-      \ 'action_table' : {},
-      \ "syntax": "uniteSource__VimMappings",
+" ============================================================================
+" Source:                                                                 [[[1
+" ============================================================================
+let s:source =
+      \ { 'name'           : 'vim/mappings'
+      \ , 'description'    : 'candidates from Vim mappings'
+      \ , 'matchers'       : 'matcher_regexp'
+      \ , 'is_volatile'    : 0
+      \ , 'is_multiline'   : 1
+      \ , 'default_action' : 'open'
+      \ , 'default_kind'   : 'command'
+      \ , "filters"        : ['converter_relative_word', 'matcher_regexp', 'sorter_default' ]
+      \ , "hooks"          : {}
+      \ , 'action_table'   : {}
+      \ , "syntax"         : "uniteSource__VimMappings"
       \ }
 
 
@@ -40,8 +45,10 @@ function! unite#sources#vim_mappings#define()
 endfunction
 
 
-">=< Hooks [[[1 ==============================================================
-function! s:source.hooks.on_init(args, context) "                         [[[2
+" ============================================================================
+" Hooks:                                                                  [[[1
+" ============================================================================
+function! s:source.hooks.on_init(args, context) 
 
     let a:context.source__buffer = get(a:args, 0, bufnr('%'))
     let a:context.source__query = get(a:args, 1, '')
@@ -58,7 +65,7 @@ function! s:source.hooks.on_init(args, context) "                         [[[2
     \ . g:unite_viminfo__mappings_highlight_mapping_name
 endfunction
 
-function! s:source.hooks.on_syntax(args, context) "                       [[[2
+function! s:source.hooks.on_syntax(args, context) 
 
     execute 'syntax region uniteSource__VimMappings_Map matchgroup=Delimiter start=/+\s/'
                 \ . ' end=/\%<78c'. g:unite_viminfo__mappings_delimiter . '/'
@@ -67,7 +74,9 @@ endfunction
 
 
 
-">=< Gather Candidates [[[1 ==================================================
+" ============================================================================
+" Gather Candidates:                                                      [[[1
+" ============================================================================
 function! s:source.gather_candidates(args, context)
 
     if a:context.source__buffer != a:context.source__old_buffer
@@ -154,29 +163,33 @@ function! s:source.complete(args, context, arglead, cmdline, cursorpos)
   return filter(range(1, bufnr('$')), 'buflisted(v:val)')
 endfunction
 
-" Actions "{{{
+" ============================================================================
+" Actions:                                                                [[[1
+" ============================================================================
+
 let s:source.action_table.preview = {
       \ 'description' : 'view the help documentation',
       \ 'is_quit' : 0,
       \ }
-function! s:source.action_table.preview.func(candidate) "{{{
-  let winnr = winnr()
+function! s:source.action_table.preview.func(candidate)
+    let winnr = winnr()
 
-  try
-    execute 'help' matchstr(
-        \ a:candidate.word, '<Plug>\S\+')
-    normal! zv
-    normal! zt
-    setlocal previewwindow
-    setlocal winfixheight
-  catch /^Vim\%((\a\+)\)\?:E149/
-    " Ignore
-  endtry
+    try
+        execute 'help' matchstr(
+            \ a:candidate.word, '<Plug>\S\+')
+        normal! zv
+        normal! zt
+        setlocal previewwindow
+        setlocal winfixheight
+    catch /^Vim\%((\a\+)\)\?:E149/
+        " Ignore
+    endtry
 
-  execute winnr.'wincmd w'
-endfunction"}}}
-"}}}
+    execute winnr.'wincmd w'
+endfunction
 
 
-"▲ Modeline ◀ [[[1 ===========================================================
+" ============================================================================
+" Modeline:                                                               [[[1
+" ============================================================================
 " vim: set ft=vim ts=4 sw=4 tw=78 fdm=marker fmr=[[[,]]] fdl=1 :
