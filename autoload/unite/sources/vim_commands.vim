@@ -11,7 +11,9 @@
 "                  Released under current GPL license.
 " --------------- ------------------------------------------------------------
 
-">=< Settings [[[1 ===========================================================
+" ============================================================================
+" Settings:                                                               [[[1
+" ============================================================================
 
 call zl#rc#set_default({
     \ 'g:unite_viminfo__commands_delimiter'              : '⎜'      ,
@@ -20,7 +22,9 @@ call zl#rc#set_default({
     \ })
 
 
-">=< Source [[[1 =============================================================
+" ============================================================================
+" Source:                                                                 [[[1
+" ============================================================================
 let s:source = {
     \ 'name'           : 'vim/commands'             ,
     \ 'is_volatile'    : 0                          ,
@@ -35,8 +39,10 @@ function! unite#sources#vim_commands#define()
 endfunction
 
 
-">=< Hooks [[[1 ==============================================================
-function! s:source.hooks.on_init(args, context) "                         [[[2
+" ============================================================================
+" Hooks:                                                                  [[[1
+" ============================================================================
+function! s:source.hooks.on_init(args, context) 
 
     let a:context.source__query = get(a:args, 0, '')
     let a:context.source__odd_line_pattern =
@@ -66,7 +72,7 @@ function! s:source.hooks.on_init(args, context) "                         [[[2
     \ . g:unite_viminfo__commands_highlight_command_name
 endfunction
 
-function! s:source.hooks.on_syntax(args, context) "                       [[[2
+function! s:source.hooks.on_syntax(args, context) 
     execute 'syntax region uniteSource__VimCommands_Name matchgroup=Delimiter start=/'
                 \ . '+\s/ end=/\%<78c'. g:unite_viminfo__commands_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimCommands'
@@ -74,7 +80,9 @@ endfunction
 
 
 
-">=< Gather Candidates [[[1 ==================================================
+" ============================================================================
+" Gather Candidates:                                                      [[[1
+" ============================================================================
 let s:cached_result = []
 function! s:source.gather_candidates(args, context)
     if !a:context.is_redraw && !empty(s:cached_result)
@@ -132,5 +140,7 @@ endfunction
 
 
 
-"▲ Modeline ◀ [[[1 ===========================================================
+" ============================================================================
+" Modeline:                                                               [[[1
+" ============================================================================
 " vim: set ft=vim ts=4 sw=4 tw=78 fdm=marker fmr=[[[,]]] fdl=1 :

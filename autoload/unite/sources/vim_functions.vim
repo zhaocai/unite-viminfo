@@ -1,9 +1,7 @@
 " --------------- ------------------------------------------------------------
-"           Name : vim/function
-"       Synopsis : unite source to grab vim function
+"           Name : vim/functions
 "         Author : Zhao Cai <caizhaoff@gmail.com>
 "       HomePage : https://github.com/zhaocai/unite-viminfo
-"        Version : 0.1
 "   Date Created : Sun 12 Aug 2012 10:06:14 PM EDT
 "  Last Modified : Wed 26 Sep 2012 08:06:05 PM EDT
 "            Tag : [ vim, unite, info ]
@@ -12,7 +10,9 @@
 " --------------- ------------------------------------------------------------
 
 
-">=< Settings [[[1 ===========================================================
+" ============================================================================
+" Settings:                                                               [[[1
+" ============================================================================
 
 call zl#rc#set_default({
     \ 'g:unite_viminfo__function_delimiter'          : '⎜'      ,
@@ -28,24 +28,28 @@ call zl#rc#set_default({
 
 
 
-">=< Source [[[1 =============================================================
+" ============================================================================
+" Source:                                                                 [[[1
+" ============================================================================
 let s:source = {
-      \ 'name': 'vim/function',
-      \ 'is_volatile': 0,
-      \ 'default_action' : 'open',
-      \ "hooks": {},
-      \ "syntax": "uniteSource__VimFunction",
+      \ 'name'           : 'vim/functions'            ,
+      \ 'is_volatile'    : 0                          ,
+      \ 'default_action' : 'open'                     ,
+      \ "hooks"          : {}                         ,
+      \ "syntax"         : "uniteSource__VimFunction" ,
       \ }
 
-function! unite#sources#vim_function#define()
+function! unite#sources#vim_functions#define()
     return s:source
 endfunction
 
 
 
 
-">=< Hooks [[[1 ==============================================================
-function! s:source.hooks.on_init(args, context) "                              [[[2
+" ============================================================================
+" Hooks:                                                                  [[[1
+" ============================================================================
+function! s:source.hooks.on_init(args, context)
 
     let a:context.source__query = get(a:args, 0, '')
 
@@ -61,7 +65,7 @@ function! s:source.hooks.on_init(args, context) "                              [
     \ . g:unite_viminfo__function_highligh_func_name
 endfunction
 
-function! s:source.hooks.on_syntax(args, context) "                            [[[2
+function! s:source.hooks.on_syntax(args, context)
     execute 'syntax region uniteSource__VimFunction_Name matchgroup=Delimiter start=/'
                 \ . '+\s/ end=/\%<100c'. g:unite_viminfo__function_delimiter . '/'
                 \ . ' oneline contained keepend containedin=uniteSource__VimFunction'
@@ -70,7 +74,9 @@ endfunction
 
 
 
-">=< Gather Candidates [[[1 ==================================================
+" ============================================================================
+" Gather Candidates:                                                      [[[1
+" ============================================================================
 let s:cached_result = []
 function! s:source.gather_candidates(args, context)
     if !a:context.is_redraw && !empty(s:cached_result)
@@ -117,6 +123,8 @@ endfunction
 
 
 
-"▲ Modeline ◀ [[[1 ===========================================================
+" ============================================================================
+" Modeline:                                                               [[[1
+" ============================================================================
 " vim: set ft=vim ts=4 sw=4 tw=78 fdm=marker fmr=[[[,]]] fdl=1 :
 
