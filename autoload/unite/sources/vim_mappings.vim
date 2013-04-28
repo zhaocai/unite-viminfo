@@ -15,7 +15,7 @@
 " Settings:                                                               [[[1
 " ============================================================================
 
-call zl#rc#set_default({
+call uinfo#zl#rc#set_default({
     \ 'g:unite_viminfo__mappings_delimiter'              : '⎜'      ,
     \ 'g:unite_viminfo__mappings_align_width'            : 14       ,
     \ 'g:unite_viminfo__mappings_highlight_mapping_name' : 'Define' ,

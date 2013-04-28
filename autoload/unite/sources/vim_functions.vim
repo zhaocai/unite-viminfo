@@ -14,7 +14,7 @@
 " Settings:                                                               [[[1
 " ============================================================================
 
-call zl#rc#set_default({
+call uinfo#zl#rc#set_default({
     \ 'g:unite_viminfo__function_delimiter'          : '⎜'      ,
     \ 'g:unite_viminfo__function_align_width'        : '39'     ,
     \ 'g:unite_viminfo__function_highligh_func_name' : 'Define' ,

@@ -2,20 +2,17 @@
 " Bundle        : unite-viminfo
 " Author        : Zhao Cai
 " Email         : caizhaoff@gmail.com
-" URL           :
-" Version       : 0.1
+" URL           : https://github.com/zhaocai/unite-viminfo
 " Date Created  : Tue 07 Aug 2012 09:19:06 PM EDT
 " Last Modified : Thu 20 Sep 2012 04:39:15 PM EDT
 " Tag           : [ vim, info, unite  ]
-" Flavor        : [ env:gui,  ]
-" Dependence    : [ ]
 " ------------- - ------------------------------------------------------------
 
 
 " ============================================================================
 " Load Guard:                                                             [[[1
 " ============================================================================
-if !zl#rc#load_guard('unite_viminfo_' . expand('<sfile>:t:r'), 700, 100, ['!&cp'])
+if !uinfo#zl#rc#load_guard('unite_viminfo_' . expand('<sfile>:t:r'), 700, 100, ['!&cp'])
     finish
 endif
 
@@ -27,7 +24,7 @@ set cpo&vim
 " Settings:                                                               [[[1
 " ============================================================================
 
-call zl#rc#set_default({
+call uinfo#zl#rc#set_default({
             \ 'g:unite_viminfo_pathline_pattern' :
                 \'^\%(\s\+Last\sset\sfrom\s\)\(\f\+\)$'
     \ })

@@ -15,7 +15,7 @@
 " Settings:                                                               [[[1
 " ============================================================================
 
-call zl#rc#set_default({
+call uinfo#zl#rc#set_default({
     \ 'g:unite_viminfo__commands_delimiter'              : '⎜'      ,
     \ 'g:unite_viminfo__commands_align_width'            : '26'     ,
     \ 'g:unite_viminfo__commands_highlight_command_name' : 'Define' ,
