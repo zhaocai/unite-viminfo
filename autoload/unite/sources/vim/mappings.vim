@@ -40,7 +40,7 @@ let s:source =
       \ }
 
 
-function! unite#sources#vim_mappings#define()
+function! unite#sources#vim#mappings#define()
     return s:source
 endfunction
 

@@ -39,7 +39,7 @@ let s:source = {
       \ "syntax"         : "uniteSource__VimFunction" ,
       \ }
 
-function! unite#sources#vim_functions#define()
+function! unite#sources#vim#functions#define()
     return s:source
 endfunction
 

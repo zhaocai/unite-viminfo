@@ -34,7 +34,7 @@ let s:source = {
     \ "syntax"         : "uniteSource__VimCommands" ,
     \ }
 
-function! unite#sources#vim_commands#define()
+function! unite#sources#vim#commands#define()
     return s:source
 endfunction
 

@@ -39,7 +39,7 @@ function! s:unite_source.gather_candidates(args, context)
     return candidates
 endfunction
 
-function! unite#sources#vim_scriptnames#define()
+function! unite#sources#vim#scriptnames#define()
     return s:unite_source
 endfunction
 

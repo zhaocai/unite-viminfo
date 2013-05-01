@@ -12,7 +12,8 @@
 " ============================================================================
 " Load Guard:                                                             [[[1
 " ============================================================================
-if !uinfo#zl#rc#load_guard('unite_viminfo_' . expand('<sfile>:t:r'), 700, 100, ['!&cp'])
+if !uinfo#zl#rc#load_guard('unite_viminfo_' . expand('<sfile>:t:r'),
+    \ 700, 100, ['!&cp'])
     finish
 endif
 

@@ -62,9 +62,13 @@ function! uinfo#zl#rc#load_guard(prefix, vim_version, uinfo_zl_version,exprs,...
     " Raise   :
     "
     " Example : >
-    "   if !uinfo#zl#rc#load_guard(expand('<sfile>:t:r'), 702, 100, ['!&cp'])
-    "       finish
-    "   endif
+    "   try | if !uinfo#zl#rc#load_guard(expand('<sfile>:t:r'), 703, 140, ['!&cp'])
+    "           finish
+    "       endif
+    "   catch /^Vim\%((\a\+)\)\=:E117/
+    "       " E117: Unknown Function
+    "       throw 'zl.vim is required!'
+    "   endtry
     "
     " Details :
     "   g:loaded_{script name} is defined as 1 if:

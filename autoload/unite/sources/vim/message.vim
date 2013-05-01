@@ -51,7 +51,7 @@ function! s:source.hooks.on_syntax(args, context)
   endtry
 endfunction
 
-function! unite#sources#vim_message#define()
+function! unite#sources#vim#message#define()
     return s:source
 endfunction
 
