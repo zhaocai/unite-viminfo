@@ -78,6 +78,7 @@ endfunction
 " Gather Candidates:                                                      [[[1
 " ============================================================================
 function! s:source.gather_candidates(args, context)
+    let candidates = []
 
     redir => output
     silent execute 'verbose function ' . a:context.source__query
