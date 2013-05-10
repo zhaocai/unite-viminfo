@@ -77,12 +77,7 @@ endfunction
 " ============================================================================
 " Gather Candidates:                                                      [[[1
 " ============================================================================
-let s:cached_result = []
 function! s:source.gather_candidates(args, context)
-    if !a:context.is_redraw && !empty(s:cached_result)
-        return s:cached_result
-    endif
-    let s:cached_result = []
 
     redir => output
     silent execute 'verbose function ' . a:context.source__query
@@ -99,7 +94,7 @@ function! s:source.gather_candidates(args, context)
         else
             let _path = matchlist(_, a:context.source__even_line_pattern)[1]
 
-            call add(s:cached_result, {
+            call add(candidates, {
                 \ "word"              :  _name
                     \ . repeat(' ', g:unite_viminfo__function_align_width - strdisplaywidth(_name) - 1) . ' '
                     \ . g:unite_viminfo__function_delimiter . ' '
@@ -118,7 +113,7 @@ function! s:source.gather_candidates(args, context)
         endif
         let i += 1
     endfor
-    return s:cached_result
+    return candidates
 endfunction
 
 

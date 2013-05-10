@@ -77,11 +77,7 @@ endfunction
 " ============================================================================
 " Gather Candidates:                                                      [[[1
 " ============================================================================
-let s:cached_result = []
 function! s:source.gather_candidates(args, context)
-    if !a:context.is_redraw && !empty(s:cached_result)
-        return s:cached_result
-    endif
 
     if a:context.source__buffer != a:context.source__old_buffer
         execute 'buffer' a:context.source__buffer
@@ -102,7 +98,7 @@ function! s:source.gather_candidates(args, context)
 
     let lines = split(map_output, "\n") + split(imap_output, "\n")
 
-    let s:cached_result = []
+    let candidates = []
 
     let i = 0
     for _ in lines
@@ -155,11 +151,11 @@ function! s:source.gather_candidates(args, context)
                 call extend(candidate.kind, ['file', 'jump_list'] )
             endif
 
-            call add(s:cached_result, candidate)
+            call add(candidates, candidate)
         endif
         let i += 1
     endfor
-    return s:cached_result
+    return candidates
 endfunction
 
 function! s:source.complete(args, context, arglead, cmdline, cursorpos)
