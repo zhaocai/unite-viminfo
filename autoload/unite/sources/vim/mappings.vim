@@ -28,8 +28,8 @@ call uinfo#zl#rc#set_default({
 let s:source =
       \ { 'name'           : 'vim/mappings'
       \ , 'description'    : 'candidates from Vim mappings'
-      \ , 'matchers'       : 'matcher_regexp'
       \ , 'is_volatile'    : 0
+      \ , 'is_multiline'   : 1
       \ , 'default_action' : 'open'
       \ , 'default_kind'   : 'command'
       \ , "hooks"          : {}
@@ -103,7 +103,7 @@ function! s:source.gather_candidates(args, context)
         if _ =~ "No mapping found" || _ =~ '^\s*$'
             continue
         endif
-        if i % 2 == 0
+        if i%2 == 0
 
             let [_mode, _map, _word] = matchlist(_, a:context.source__odd_line_pattern)[1:3]
 
@@ -115,7 +115,6 @@ function! s:source.gather_candidates(args, context)
                 let _nmap = substitute(_map, '<NL>', '<C-j>', 'g')
                 let _nmap = substitute(_nmap, '\(<.*>\)', '\\\1', 'g')
             endif
-
         else
             try
                 let _path = matchlist(_, a:context.source__even_line_pattern)[1]
