@@ -28,7 +28,7 @@ function! s:source.gather_candidates(args, context)
 
     let result = split(output, '\r\n\|\n')
     let candidates = []
-    for _ in reverse(result)
+    for _ in result
         call add(candidates, {
                 \ "word": _,
                 \ "source": "vim/message",
